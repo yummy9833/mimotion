@@ -1,0 +1,24 @@
+name: Keepalive Workflow (API Mode)
+
+on:
+  schedule:
+    # 每月运行两次：每月4号和19号的14:45 UTC
+    - cron: '45 14 4,19 * *'
+  workflow_dispatch:   # 允许手动触发，方便测试
+
+# 授予这个工作流足够的权限
+permissions:
+  actions: write       # 必须！允许启用/禁用工作流
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-enable scheduled workflows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # 将下面两个文件名替换为你需要保持活跃的工作流文件名
+          gh workflow enable keepalive.yml
+          gh workflow enable 刷步数.yml
