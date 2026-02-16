@@ -21,4 +21,4 @@ jobs:
         run: |
           # 将下面两个文件名替换为你需要保持活跃的工作流文件名
           gh workflow enable keepalive.yml
-          gh workflow enable 刷步数.yml
+          gh workflow enable run.yml
